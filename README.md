@@ -2,7 +2,7 @@
 
 # System Requirements
 
-- Ubuntu 16.04
+- Ubuntu 20.04.2 LTS
 
 ## Installation
 

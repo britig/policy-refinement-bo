@@ -88,5 +88,8 @@ The correct method takes the actor and critic networks of the old policy and the
 
 ### Calculate the distance between the original policy and the updated policy
 
+```
+$ python main.py --distance
+```
 
-
+The correct method takes the actor network of the old policy and the updated policy as an argument

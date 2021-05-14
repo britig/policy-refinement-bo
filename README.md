@@ -19,3 +19,5 @@ $ conda activate env_name
 $ pip install -r requirements.txt
 $ pip install -e .
 ```
+
+## Usage

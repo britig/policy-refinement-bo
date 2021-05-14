@@ -1,5 +1,4 @@
-# policy-refinement-bo
-
+# Policy Refinement Using Bayesian Optimization
 
 # System Requirements
 

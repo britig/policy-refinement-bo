@@ -5,11 +5,18 @@
 
 - Ubuntu 16.04
 
-## Dependencies
+## Installation
 
-python==3.8.5
-gym==0.18.0
-numpy==1.20.3
-pytorch==1.8.1
-Gpy==1.9.9
-GPyOpt==1.2.6
+1. Setup conda environment
+
+```
+$ conda create -n env_name python=3.8.5
+$ conda activate env_name
+```
+2. Clone the repository to an appropriate folder
+3. Install requirements
+
+```
+$ pip install -r requirements.txt
+$ pip install -e .
+```

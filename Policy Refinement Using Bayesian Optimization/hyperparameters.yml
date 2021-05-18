@@ -1,0 +1,82 @@
+CartPole-v0:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 400 
+    'gamma': 0.99
+    'n_updates_per_iteration': 10
+    'lr': !!float 1e-4
+    'clip': 0.1
+    'discrete': True
+    'training_step' : 500
+    
+CartPole-v0-sub:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 200 
+    'gamma': 0.99
+    'n_updates_per_iteration': 20
+    'lr': !!float 1e-4
+    'clip': 0.2
+    'seed': 402
+    'discrete': True
+    'training_step' : 150
+
+Pendulum-v0:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 200 
+    'gamma': 0.99
+    'n_updates_per_iteration': 10
+    'lr': !!float 3e-4
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 500
+    
+Pendulum-v0-sub:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 200 
+    'gamma': 0.99
+    'n_updates_per_iteration': 10
+    'lr': !!float 3e-3
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 200
+    
+LunarLanderContinuous-v2:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 300 
+    'gamma': 0.99
+    'n_updates_per_iteration': 10
+    'lr': !!float 3e-4
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 448
+    
+LunarLanderContinuous-v2-sub:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 300 
+    'gamma': 0.99
+    'n_updates_per_iteration': 10
+    'lr': !!float 3e-3
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 200
+    
+    
+BipedalWalker-v3:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 800 
+    'gamma': 0.99
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-4
+    'clip': 0.2
+    'seed': 702
+    'training_step' : 500
+    
+BipedalWalker-v3-sub:
+    'timesteps_per_batch': 4048
+    'max_timesteps_per_episode': 1600 
+    'gamma': 0.99
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-3
+    'clip': 0.2
+    'seed': 702
+    'training_step' : 200
+ 

@@ -1,0 +1,213 @@
+"""
+	The main file to run the policy correction code
+	Author : Briti Gangopdahyay
+	Formal Methods Lab, IIT Kharagpur
+"""
+
+
+
+import torch
+from ppoPolicyTraining import PPO, test
+from network import FeedForwardActorNN
+import pickle
+from eval_policy import display
+import numpy as np
+#Update failure network
+from UpdateNetwork import correct_policy
+from Utility import compute_distance, set_environment
+import argparse
+import yaml
+
+
+if __name__ == '__main__':
+	#=============================== Environment and Hyperparameter Configuration Start ================================#
+	#Hyperparameters Pendulum
+	'''env_name = 'Pendulum-v0'
+	env = gym.make(env_name)
+	seed = 0
+	env.seed(seed)
+	hyperparameters = {
+				'timesteps_per_batch': 2048, 
+				'max_timesteps_per_episode': 200, 
+				'gamma': 0.99, 
+				'n_updates_per_iteration': 10,
+				'lr': 3e-4, 
+				'clip': 0.2,
+				'seed': 741,
+				'train' : 500
+			  }'''
+	#Hyperparameters Bipedal
+	'''env_name = 'BipedalWalker-v3'
+	env = set_environment(env_name,0)
+	hyperparameters = {
+				'timesteps_per_batch': 4048, 
+				'max_timesteps_per_episode': 1600, 
+				'gamma': 0.99, 
+				'n_updates_per_iteration': 10,
+				'lr': 2.5e-3, 
+				'clip': 0.2,
+				'seed': 702,
+			  }'''
+	#Hyperparameters Lunar Lander
+	'''env_name = 'LunarLanderContinuous-v2'
+	env = set_environment(env_name,0)
+	hyperparameters = {
+				'timesteps_per_batch': 2048, 
+				'max_timesteps_per_episode': 300, 
+				'gamma': 0.99, 
+				'n_updates_per_iteration': 10,
+				'lr': 3e-3, 
+				'clip': 0.2,
+				'seed': 702,
+				'train' : 500
+			  }'''
+	#Hyperparameters Reacher
+	'''env_name = 'Reacher-v2'
+	env = set_environment(env_name,0)
+	hyperparameters = {
+				'timesteps_per_batch': 2048, 
+				'max_timesteps_per_episode': 300, 
+				'gamma': 0.99, 
+				'n_updates_per_iteration': 10,
+				'lr': 2.5e-4, 
+				'clip': 0.2
+			  }'''
+	#=============================== Environment and Hyperparameter Configuration End ================================#
+	parser = argparse.ArgumentParser(description='')
+	parser.add_argument('--env', dest='env', action='store_true', help='environment_name')
+	parser.add_argument('--train', dest='train', action='store_true', help='train model')
+	parser.add_argument('--test', dest='test', action='store_true', help='test model')
+	parser.add_argument('--display', dest='display', action='store_true', help='Display Failure Trajectories')
+	parser.add_argument('--actor', dest='actor', action='store_true', help='Actor Model')
+	parser.add_argument('--critic', dest='critic', action='store_true', help='Critic Model')
+	parser.add_argument('--failuretraj', dest='failuretraj', action='store_true', help='File name with failure trajectories')
+	parser.add_argument('--subtrain', dest='subtrain', action='store_true', help='Training a subpolicy')
+	parser.add_argument('--correct', dest='correct', action='store_true', help='Correct the orginal policy')
+	parser.add_argument('--distance', dest='distance', action='store_true', help='Computing distance between two subpolicy')
+	parser.add_argument('--isdiscrete', dest='isdiscrete', action='store_true', help='Environment discrete or continuous')
+	args = parser.parse_args()
+	actor_model = None
+	criti_model = None
+	failure_trajectory = None
+	env_name = None
+	is_discrete = False
+	if args.env:
+		env_name = args.env
+	else:
+		env_name = 'Pendulum-v0'
+	if args.isdiscrete:
+		is_discrete = args.isdiscrete
+	if args.actor:
+		actor_model = args.actor
+	else:
+		actor_model = 'ppo_actor_updatedCartPole-v0.pth'
+	if args.critic:
+		critic_model = args.critic
+	else:
+		critic_model = 'ppo_criticLunarLanderContinuous-v2.pth'
+	if args.failuretraj:
+		failure_trajectory = args.failuretraj
+	else:
+		failure_trajectory = 'failure_trajectory_momentum.data'
+
+	env = set_environment(env_name,0)
+	with open('hyperparameters.yml') as file:
+		paramdoc = yaml.full_load(file)
+	#=============================== Original Policy Training Code Start ================================#
+	if args.train:
+		for item, param in paramdoc.items():
+			if(str(item)==env_name):
+				hyperparameters = param
+				print(param)
+		model = PPO(env=env, **hyperparameters)
+		model.learn(env_name, [], False)
+	#=============================== Original Policy Training Code End ================================#
+	#=============================== Policy Testing Code Start ==========================#
+	if args.test:
+		test(env,actor_model, is_discrete)
+	#=============================== Policy Testing Code End ============================#
+	#=============================== Computing Failure Trajectories Code Start ==========================#
+
+	#=============================== Computing Failure Trajectories Code End  ==========================#
+	#=============================== Displaying Failure Trajectories Code Start  ==========================#
+	if args.display:
+		with open(failure_trajectory, 'rb') as filehandle1:
+			# read env_state
+			failure_observations = pickle.load(filehandle1)
+		print(f'Number of failure trajectories=========={len(failure_observations)}')
+		obs_dim = env.observation_space.shape[0]
+		if is_discrete:
+			act_dim = env.action_space.n
+		else:
+			act_dim = env.action_space.shape[0]
+		#act_dim = env.action_space.n
+		policy = FeedForwardActorNN(obs_dim, act_dim,is_discrete)
+		policy.load_state_dict(torch.load(actor_model))
+		traj_count = 0
+		traj_spec_dic = {}
+		#Had to be done to set the environment to the same state as when it was sampled
+		if env_name == 'BipedalWalker-v3':
+			count = 0
+			for i in range(len(failure_observations)):
+				#env.reset()
+				#the index for which it was sampled
+				index_count = failure_observations[i][2]
+				#print(f'index_count==== {index_count}')
+				#print(f'reward_specification ==== {failure_observations[i][1]}')
+				while count != index_count:
+					env.reset()
+					count = count + 1
+				
+				ep_ret, traj, iter  = display(failure_observations[i][0][0],policy,env,False)
+		elif env_name == 'LunarLanderContinuous-v2':
+			for i in range(len(failure_observations)):
+				seed = failure_observations[i][2]
+				#print(seed)
+				env.seed(seed[0])
+				env.reset()
+				disturbances = failure_observations[i][3]
+				env.env.lander.position[0] = env.lander.position[0]+disturbances[0]
+				env.env.lander.position[1] = env.lander.position[1]+disturbances[1]
+				env.env.lander.linearVelocity[0] = env.lander.linearVelocity[0]+3
+				#print(f'Disturbances======{disturbances[0]}======={disturbances[1]}')
+				#print(f'SAMPLED observation======{failure_observations[i][0][0]}')
+				ep_ret, traj, iter  = display(failure_observations[i][0][0],policy,env,False)
+		else:
+			for i in range(len(failure_observations)):
+				env.reset()
+				#print(f'SAMPLED observation======{failure_observations[i][0]}=======ACTION======{failure_observations[i][1]}')
+				ep_ret, traj, iter = display(failure_observations[i][0][0],policy,env,is_discrete)
+	#=============================== Displaying Failure Trajectories Code End  ==========================#
+	#=============================== Sub Policy Learning for Failure Trajectories Code Start  ==========================#
+	if args.subtrain:
+		env_sub_name = env_name+'-sub'
+		for item, param in paramdoc.items():
+			if(str(item)==env_sub_name):
+				hyperparameters = param
+				print(param)
+		with open(failure_trajectory, 'rb') as filehandle1:
+			# read env_state
+			failure_observations = pickle.load(filehandle1)
+		model = PPO(env=env, **hyperparameters)
+		model.learn(env_name, failure_observations , True)
+	#=============================== Sub Policy Learning for Failure Trajectories Code End  ==========================#
+	#=============================== Policy Correction for Failure Trajectories Code Start  ==========================#
+	if args.correct:
+		correct_policy(env,'Policies/ppo_actorCartPole-v0.pth','Policies/ppo_criticCartPole-v0.pth','ppo_actor_subpolicyCartPole-v0.pth','ppo_critic_subpolicyCartPole-v0.pth',is_discrete,failure_trajectory)
+	#=============================== Policy Correction for Failure Trajectories Code End  ==========================#
+	#=============================== Compute Distance between two policies Code Start  ==========================#
+	if args.distance:
+		#For finding out standard deviation
+		distance_list = []
+		for i in range(20):
+			dist = compute_distance('Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth',env,is_discrete)
+			distance_list.append(dist)
+		distance_list =	np.array(distance_list)
+		print(f'distance_list ========== {distance_list}')
+		mean = np.mean(distance_list)
+		std_dev = np.std(distance_list)
+		print(f'mean dis ========== {mean} std div ======= {std_dev}')
+	#=============================== Compute Distance between two policies Code End  ==========================#
+	
+
+

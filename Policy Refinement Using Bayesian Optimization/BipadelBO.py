@@ -111,7 +111,7 @@ if __name__ == '__main__':
     act_dim = env.action_space.shape[0]
 
     # Build our policy the same way we build our actor model in PPO
-    policy = FeedForwardActorNN(obs_dim, act_dim)
+    policy = FeedForwardActorNN(obs_dim, act_dim,False)
 
     # Load in the actor model saved by the PPO algorithm
     policy.load_state_dict(torch.load(actor_model))

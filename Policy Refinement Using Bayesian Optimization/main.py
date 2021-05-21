@@ -1,7 +1,5 @@
 """
 	The main file to run the policy correction code
-	Author : Briti Gangopdahyay
-	Formal Methods Lab, IIT Kharagpur
 """
 
 
@@ -21,58 +19,6 @@ import yaml
 
 if __name__ == '__main__':
 	#=============================== Environment and Hyperparameter Configuration Start ================================#
-	#Hyperparameters Pendulum
-	'''env_name = 'Pendulum-v0'
-	env = gym.make(env_name)
-	seed = 0
-	env.seed(seed)
-	hyperparameters = {
-				'timesteps_per_batch': 2048, 
-				'max_timesteps_per_episode': 200, 
-				'gamma': 0.99, 
-				'n_updates_per_iteration': 10,
-				'lr': 3e-4, 
-				'clip': 0.2,
-				'seed': 741,
-				'train' : 500
-			  }'''
-	#Hyperparameters Bipedal
-	'''env_name = 'BipedalWalker-v3'
-	env = set_environment(env_name,0)
-	hyperparameters = {
-				'timesteps_per_batch': 4048, 
-				'max_timesteps_per_episode': 1600, 
-				'gamma': 0.99, 
-				'n_updates_per_iteration': 10,
-				'lr': 2.5e-3, 
-				'clip': 0.2,
-				'seed': 702,
-			  }'''
-	#Hyperparameters Lunar Lander
-	'''env_name = 'LunarLanderContinuous-v2'
-	env = set_environment(env_name,0)
-	hyperparameters = {
-				'timesteps_per_batch': 2048, 
-				'max_timesteps_per_episode': 300, 
-				'gamma': 0.99, 
-				'n_updates_per_iteration': 10,
-				'lr': 3e-3, 
-				'clip': 0.2,
-				'seed': 702,
-				'train' : 500
-			  }'''
-	#Hyperparameters Reacher
-	'''env_name = 'Reacher-v2'
-	env = set_environment(env_name,0)
-	hyperparameters = {
-				'timesteps_per_batch': 2048, 
-				'max_timesteps_per_episode': 300, 
-				'gamma': 0.99, 
-				'n_updates_per_iteration': 10,
-				'lr': 2.5e-4, 
-				'clip': 0.2
-			  }'''
-	#=============================== Environment and Hyperparameter Configuration End ================================#
 	parser = argparse.ArgumentParser(description='')
 	parser.add_argument('--env', dest='env', action='store_true', help='environment_name')
 	parser.add_argument('--train', dest='train', action='store_true', help='train model')
@@ -94,25 +40,26 @@ if __name__ == '__main__':
 	if args.env:
 		env_name = args.env
 	else:
-		env_name = 'Pendulum-v0'
+		env_name = 'LunarLanderContinuous-v2'
 	if args.isdiscrete:
 		is_discrete = args.isdiscrete
 	if args.actor:
 		actor_model = args.actor
 	else:
-		actor_model = 'ppo_actor_updatedCartPole-v0.pth'
+		actor_model = 'Policies/ppo_actorLunarLanderContinuous-v2.pth'
 	if args.critic:
 		critic_model = args.critic
 	else:
-		critic_model = 'ppo_criticLunarLanderContinuous-v2.pth'
+		critic_model = 'Policies/ppo_criticLunarLanderContinuous-v2.pth'
 	if args.failuretraj:
 		failure_trajectory = args.failuretraj
 	else:
-		failure_trajectory = 'failure_trajectory_momentum.data'
+		failure_trajectory = 'Failure_Trajectories/failure_trajectory_lunar_implication.data'
 
 	env = set_environment(env_name,0)
 	with open('hyperparameters.yml') as file:
 		paramdoc = yaml.full_load(file)
+	#=============================== Environment and Hyperparameter Configuration End ================================#
 	#=============================== Original Policy Training Code Start ================================#
 	if args.train:
 		for item, param in paramdoc.items():

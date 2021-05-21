@@ -24,6 +24,10 @@ $ pip install -e .
 
 All the trained policies, sub-policies and updated policies are avialable in the policies folder
 
+### Important step
+
+Navigate to the installed gym folder and replace the box2d and mujoco folders with the one in this repository. We have changed some private variables to class variables to acceess them from outside.
+
 ### Training
 
 The trained policies are available in the policies folder and need not be trained again

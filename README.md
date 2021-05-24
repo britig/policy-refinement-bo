@@ -78,13 +78,18 @@ To display failure trajectories:
 ```
 $ python main.py --display
 ```
-Mention the policy and the failure trajectory file
+Mention the policy and the failure trajectory file in arguments or in the main.py file
+
+Change the actor_model argument for observing the behaviour of sub-policy and updated policy on the failure trajectories
+
 
 ### Training the sub-policy
 
 ```
 $ python main.py --subtrain
 ```
+
+Mention the failure trajectory file in arguments or in the main.py file
 
 ### Update the original Policy to new Policy via gradient based updates
 
@@ -93,11 +98,15 @@ $ python main.py --correct
 ```
 The correct method takes the actor and critic networks of the old policy and the subpolicy as an argument
 
+default function parameters are 
+correct_policy(env,'Policies/ppo_actorCartPole-v0.pth','Policies/ppo_criticCartPole-v0.pth','ppo_actor_subpolicyCartPole-v0.pth','ppo_critic_subpolicyCartPole-v0.pth',is_discrete,failure_trajectory)
+
 
 ### Calculate the distance between the original policy and the updated policy
 
 ```
 $ python main.py --distance
 ```
+default function parameters are:
 
-The correct method takes the actor network of the old policy and the updated policy as an argument
+compute_distance('Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth',env,is_discrete)

@@ -35,11 +35,11 @@ The trained policies are available in the policies folder and need not be traine
 The main program takes the following arguments
 
 1) env : environment name (default is LunarLanderContinuous-v2)
-2) actor : filepath to the actor network (default is ppo_actorLunarLanderContinuous-v2.pth)
-3) critic : filepath to the critic network (default is ppo_criticLunarLanderContinuous-v2.pth)
-4) failuretraj : The filepath to the failure trajectory path (default is failure_trajectory_lunar.data)
+2) actor : filepath to the actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
+3) critic : filepath to the critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
+4) failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
 
-Note : I generally change the default argument in the main.py file otherwise the command line becomes too long
+Note : Change the default arguments in the main.py file otherwise the command line may become too long
 
 To train a model run:
 
@@ -61,6 +61,8 @@ Press ctr+c to end testing
 ### Generating Failure trajectories for a specific environment
 
 Each environment has a seperate Bayesian Optimization file. Run the Bayesian Optimization correspondig to the environment
+We use GpyOpt Library for Bayesian Optimization. As per (https://github.com/SheffieldML/GPyOpt/issues/337) GpyOpt has stochastic evaluations
+This may lead to identification of a different number failure trajectories (higher or lower) than what is reported in the paper
 For example to generate failure trajectories for the Lunar Lander environment run:
 
 ```

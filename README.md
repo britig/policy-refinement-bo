@@ -3,6 +3,7 @@
 # System Requirements
 
 - Ubuntu 20.04.2 LTS
+- Windows 10 with Anaconda
 
 ## Installation
 
@@ -13,12 +14,14 @@ $ conda create -n env_name python=3.8.5
 $ conda activate env_name
 ```
 2. Clone the repository to an appropriate folder
-3. Install requirements
+3. Navigate to Policy Refinement Using Bayesian Optimization folder and Install requirements
 
 ```
 $ pip install -r requirements.txt
 $ pip install -e .
 ```
+
+4. All code should be run from Policy Refinement Using Bayesian Optimization folder. The output files (policies and failure trajectory files are also saved inside this folder.
 
 ## Usage
 
@@ -110,3 +113,12 @@ $ python main.py --distance
 default function parameters are:
 
 compute_distance('Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth',env,is_discrete)
+
+### Display the plots and heatmaps
+
+```
+$ tensorboard --logdir=bestruns
+```
+```
+$ plot_heatmap_pendulum.py
+```

@@ -64,7 +64,7 @@ def ppo_heatmap_failure(env,critic_name,actor_name):
     anet = FeedForwardActorNN(obs_dim, act_dim)
     anet.load_state_dict(torch.load(actor_name))
 
-    with open('failure_trajectory_pendulum.data', 'rb') as filehandle1:
+    with open('Failure_Trajectories/failure_trajectory_pendulum.data', 'rb') as filehandle1:
         # read env_state
         failure_observations = pickle.load(filehandle1)
 
@@ -105,5 +105,5 @@ def ppo_heatmap_failure(env,critic_name,actor_name):
 env = gym.make('Pendulum-v0')
 seed = 0
 env.seed(seed)
-#ppo_heatmap_observations(env,'ppo_criticPendulum-v0.pth','ppo_actorPendulumupdated.pth')
-ppo_heatmap_failure(env,'ppo_criticPendulum-v0.pth','ppo_actorPendulumupdated.pth')
+#ppo_heatmap_observations(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actorPendulumupdated.pth')
+ppo_heatmap_failure(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actorPendulumupdated.pth')

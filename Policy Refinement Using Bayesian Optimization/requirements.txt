@@ -5,3 +5,4 @@ GPyOpt==1.2.6
 pyyaml
 matplotlib
 Box2D
+tensorboard

@@ -1,10 +1,8 @@
 """
     Code for collecting failure trajectories using Bayesian Optimization for environment Lunar Lander
-    Author : Briti Gangopdahyay
     Project : Policy correction using Bayesian Optimization
     Description : The file contains functions for computing failure trajectories given RL policy and
     safety specifications
-    Formal Methods Lab, IIT Kharagpur
 """
 
 import numpy as np
@@ -22,7 +20,7 @@ import pickle
     Bayesian Optimization module for uncovering failure trajectories
 
     Safety Requirement
-    # Requirement 1: The walker should not fall down in any trajectory
+    # Requirement 1: The lander should not fall down in any trajectory
 '''
 
 #=============================================Global Variables =================================#
@@ -69,13 +67,14 @@ def sample_trajectory(bounds):
 
 
 def run_BO():
+    np.random.seed(123456)
     bounds = [{'name': 'x1', 'type': 'continuous', 'domain': (0, 10)}, # Position x
               {'name': 'x2', 'type': 'continuous', 'domain': (0, 20)}, # Position y
               {'name': 'x3', 'type': 'continuous', 'domain': (0, 3)},
               {'name': 'x3', 'type': 'continuous', 'domain': (0, 3)}] # velocity_x # velocity_y
     max_iter = 200
-    myProblem = GPyOpt.methods.BayesianOptimization(sample_trajectory, bounds, acquisition_type='EI', exact_feval=True)
-    myProblem.run_optimization(max_iter)
+    myProblem = GPyOpt.methods.BayesianOptimization(sample_trajectory, bounds, acquisition_type='EI', exact_feval=True, de_duplication = True)
+    myProblem.run_optimization(max_iter, max_time=None, eps=1e-6, verbosity=True)
     print(myProblem.fx_opt)
 
 
@@ -84,9 +83,6 @@ def run_BO():
 def safet_spec_1(traj):
     reward = traj[1]['reward']
     traj = traj[0]
-    cos_thetas = np.array(traj).T[0]
-    theta_dots = np.array(traj).T[2]
-    stab_vals = 0
     if(reward<0):
         for state in traj:
             if(state[1] < 0.1 and (state[4] > 1 or state[4] < -1)):
@@ -121,7 +117,7 @@ if __name__ == '__main__':
     # Load in the actor model saved by the PPO algorithm
     policy.load_state_dict(torch.load(actor_model))
     run_BO()
-    #print(f'traj_spec_dic ========== {traj_spec_dic}')
+    print(f'Number of failure trajectories ========== {len(traj_spec_dic)}')
     with open('failure_trajectory_lunar_implication.data', 'wb') as filehandle1:
         # store the observation data as binary data stream
         pickle.dump(traj_spec_dic, filehandle1)

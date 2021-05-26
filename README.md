@@ -29,7 +29,9 @@ All the trained policies, sub-policies and updated policies are avialable in the
 
 ### Important step
 
-Navigate to the installed gym folder and replace the box2d and mujoco folders with the one in this repository. We have changed some private variables to class variables to acceess them from outside.
+```diff
+- Navigate to the installed gym folder env and replace the box2d and mujoco folders with the ones inside the env folder of this repository. We have changed some private variables to class variables to acceess them from outside.
+```
 
 ### Training
 

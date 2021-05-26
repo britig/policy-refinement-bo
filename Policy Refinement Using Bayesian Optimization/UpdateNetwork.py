@@ -116,6 +116,7 @@ def update_policy(policy_old, critic_old, policy_new, critic_new, env, fail_file
 
 
 def get_trajectory(policy_new,env,fail_file):
+	global max_timesteps_per_episode
 	env_name = env.unwrapped.spec.id
 	"""
 		This is where we collect the failure trajectories
@@ -135,6 +136,8 @@ def get_trajectory(policy_new,env,fail_file):
 	render = False
 	global logger
 	obs_count = 0
+	if(env_name == 'BipedalWalker-v3'):
+		max_timesteps_per_episode=1200
 
 	while t < timesteps_per_batch:
 		ep_rews = [] # rewards collected per episode

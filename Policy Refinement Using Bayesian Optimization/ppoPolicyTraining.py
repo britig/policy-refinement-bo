@@ -179,7 +179,7 @@ class PPO:
 
 	def rollout(self,subpolicy,failure_observations):
 		"""
-			Too many transformers references, I'm sorry. This is where we collect the batch of data
+			This is where we collect the batch of data
 			from simulation. Since this is an on-policy algorithm, we'll need to collect a fresh batch
 			of data each time we iterate the actor/critic networks.
 

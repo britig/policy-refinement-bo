@@ -9,10 +9,9 @@ import numpy as np
 import gym
 import GPyOpt
 from numpy.random import seed
-from eval_policy import choose_best_action, display
+from eval_policy import display
 import gym
-from network import FeedForwardActorNN, FeedForwardCriticNN
-from Utility import set_environment
+from network import FeedForwardActorNN
 import torch
 import pickle
 

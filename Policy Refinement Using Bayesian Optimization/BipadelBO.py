@@ -5,17 +5,13 @@
     safety specifications
 """
 
-import sys
 import numpy as np
 import gym
-import GPy
 import GPyOpt
 from numpy.random import seed
-import matplotlib
-from eval_policy import choose_best_action, display
+from eval_policy import display
 import gym
-from network import FeedForwardActorNN, FeedForwardCriticNN
-from Utility import set_environment
+from network import FeedForwardActorNN
 import torch
 import pickle
 
@@ -72,8 +68,8 @@ def run_BO():
               {'name': 'x2', 'type': 'continuous', 'domain': (-1, 1)}, # velocity_x
               {'name': 'x3', 'type': 'continuous', 'domain': (-1, 1)}] # velocity_y
     max_iter = 200
-    myProblem = GPyOpt.methods.BayesianOptimization(sample_trajectory, bounds, acquisition_type='EI', exact_feval=True)
-    myProblem.run_optimization(max_iter)
+    myProblem = GPyOpt.methods.BayesianOptimization(sample_trajectory, bounds, acquisition_type='EI', exact_feval=True, de_duplication = True)
+    myProblem.run_optimization(max_iter, eps=1e-6, verbosity=True)
     print(myProblem.fx_opt)
 
 
@@ -103,18 +99,18 @@ if __name__ == '__main__':
     env = gym.make('BipedalWalker-v3')
     seed = 0
     env.seed(seed)
-    actor_model = 'ppo_actorBipedalWalker-v3.pth'
+    actor_model = 'Policies/ppo_actorBipedalWalker-v3.pth'
     # Extract out dimensions of observation and action spaces
     obs_dim = env.observation_space.shape[0]
     act_dim = env.action_space.shape[0]
 
     # Build our policy the same way we build our actor model in PPO
-    policy = FeedForwardActorNN(obs_dim, act_dim,False)
+    policy = FeedForwardActorNN(obs_dim, act_dim, False)
 
     # Load in the actor model saved by the PPO algorithm
     policy.load_state_dict(torch.load(actor_model))
     run_BO()
-    #print(f'traj_spec_dic ========== {traj_spec_dic}')
+    print(f'Length trajectory ========== {len(traj_spec_dic)}')
     with open('failure_trajectory_bipedal.data', 'wb') as filehandle1:
         # store the observation data as binary data stream
         pickle.dump(traj_spec_dic, filehandle1)

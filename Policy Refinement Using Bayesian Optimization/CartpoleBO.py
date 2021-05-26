@@ -5,10 +5,8 @@
 	safety specifications
 """
 
-import sys
 import numpy as np
 import gym
-import GPy
 import GPyOpt
 from numpy.random import seed
 from eval_policy import choose_best_action
@@ -79,6 +77,7 @@ def sample_trajectory(bounds):
 
 
 def run_BO():
+	np.random.seed(123456)
 	bounds = [{'name': 'x1', 'type': 'continuous', 'domain': (-0.05, 0.05)},
 			  {'name': 'x2', 'type': 'continuous', 'domain': (-0.05, 0.05)},
 			  {'name': 'x3', 'type': 'continuous', 'domain': (-0.05, 0.05)},
@@ -87,8 +86,8 @@ def run_BO():
 			  {'name': 'x6', 'type': 'continuous', 'domain': (0.4, 0.6)},
 			  {'name': 'x6', 'type': 'continuous', 'domain': (8, 12)}]
 	max_iter = 200
-	myProblem = GPyOpt.methods.BayesianOptimization(sample_trajectory, bounds, acquisition_type='EI', exact_feval=True)
-	myProblem.run_optimization(max_iter)
+	myProblem = GPyOpt.methods.BayesianOptimization(sample_trajectory, bounds, acquisition_type='EI', exact_feval=True, de_duplication = True)
+	myProblem.run_optimization(max_iter, eps=1e-6, verbosity=True)
 	print(myProblem.fx_opt)
 
 
@@ -133,8 +132,8 @@ if __name__ == '__main__':
 	# Load in the actor model saved by the PPO algorithm
 	policy.load_state_dict(torch.load(actor_model))
 	run_BO()
-	#print(f'traj_spec_dic ========== {traj_spec_dic}')
-	with open('failure_trajectory_momentum.data', 'wb') as filehandle1:
+	print(f'Length trajectory ========== {len(traj_spec_dic)}')
+	with open('failure_trajectory_cartpole.data', 'wb') as filehandle1:
 		# store the observation data as binary data stream
 		pickle.dump(traj_spec_dic, filehandle1)
 

@@ -1,9 +1,7 @@
 """
 	Code for distance measurement between old policy and updated policy
-	Author : Briti Gangopdahyay
 	Project : Policy correction using Bayesian Optimization
 	Description : The file contains utility functions for distance calculations
-	Formal Methods Lab, IIT Kharagpur
 """
 
 import sys

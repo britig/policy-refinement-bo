@@ -1,8 +1,6 @@
 """
 	Code for policy updation once the failure trajectories are obtained via Bayesian Optimization
-	Author : Briti Gangopdahyay
 	Project : Policy correction using Bayesian Optimization
-	Formal Methods Lab, IIT Kharagpur
 """
 
 
@@ -79,7 +77,7 @@ def update_policy(policy_old, critic_old, policy_new, critic_new, env, fail_file
 
 
 
-		print(f'A_k======================={A_k}')
+		#print(f'A_k======================={A_k}')
 
 		if(len(batch_lens)!=0):
 			# This is the loop where we update our network for some n epochs
@@ -188,13 +186,13 @@ def get_trajectory(policy_new,env,fail_file):
 	number_of_negative_traces = 0
 	for i in range(len(avg_rtgs)):
 		# remove the negative traces from collected episode as we only want to update 
-		print(f'Reward==={i}====={avg_rtgs[i]}') 
+		#print(f'Reward==={i}====={avg_rtgs[i]}') 
 		if(avg_rtgs[i] < -300):
 			number_of_negative_traces += 1
 			#print(f'Number of negative traces {number_of_negative_traces} ====== Avg rtgs for {i} ===== {avg_rtgs[i]}')
 			index_to_remove.append(i)
 
-	print(f'Number of negative traces {number_of_negative_traces}')
+	#print(f'Number of negative traces {number_of_negative_traces}')
 
 	for num in reversed(index_to_remove):
 		batch_obs.pop(num)
@@ -213,7 +211,7 @@ def get_trajectory(policy_new,env,fail_file):
 	avg_ep_rews = np.mean([np.sum(ep_rews) for ep_rews in batch_rews])
 
 
-	print(f'batch_lens =========={batch_lens} batch_rews ========{avg_ep_rews}')
+	#print(f'batch_lens =========={batch_lens} batch_rews ========{avg_ep_rews}')
 
 	logger['batch_rews'] = batch_rews
 	logger['batch_lens'] = batch_lens

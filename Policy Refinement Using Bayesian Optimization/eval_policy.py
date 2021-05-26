@@ -123,7 +123,7 @@ def display(observation,policy,env,is_discrete):
 	done = False
 	iter = 0
 	while not done:
-		#env.render()
+		env.render()
 		if is_discrete:
 			action = choose_best_action(obs,policy)
 		else:

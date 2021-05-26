@@ -1,10 +1,8 @@
 """
 	Code for collecting failure trajectories using Bayesian Optimization
-	Author : Briti Gangopdahyay
 	Project : Policy correction using Bayesian Optimization
 	Description : The file contains functions for computing failure trajectories given RL policy and
 	safety specifications
-	Formal Methods Lab, IIT Kharagpur
 """
 
 import sys

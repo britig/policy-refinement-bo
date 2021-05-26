@@ -114,9 +114,10 @@ def display(observation,policy,env,is_discrete):
 	#this is specific to inverted pendulum environment
 	if name == 'Pendulum-v0':
 		env.env.state = observation[0:2]
+		obs = observation
 	else:
 		env.env.state = observation
-	obs = np.array(env.env.state)
+		obs = np.array(env.env.state)
 	#obs = observation
 	#print(f'obs ============= {obs}')
 	traj = [obs]

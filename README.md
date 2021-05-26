@@ -35,7 +35,7 @@ All the trained policies, sub-policies and updated policies are avialable in the
 
 ### Training
 
-The trained policies are available in the policies folder and need not be trained again
+The pre-trained policies are available in the policies folder and need not be trained again
 
 The main program takes the following arguments
 

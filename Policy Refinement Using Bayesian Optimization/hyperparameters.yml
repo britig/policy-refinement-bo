@@ -79,4 +79,92 @@ BipedalWalker-v3-sub:
     'clip': 0.2
     'seed': 702
     'training_step' : 200
+    
+Hopper-v2:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 800 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-4
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 2000
+    
+Hopper-v2-sub:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 800 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-3
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 400
+    
+Reacher-v2:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 800 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-4
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 1000
+    
+HalfCheetah-v2:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 1200 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 3e-4
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 5000
+    
+HalfCheetah-v2-sub:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 1000 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 3e-3
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 1500
+    
+Humanoid-v2:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 1000 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-4
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 5000
+    
+Walker2d-v2:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 1200 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-4
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 1350
+    
+Walker2d-v2-sub:
+    'timesteps_per_batch': 2048
+    'max_timesteps_per_episode': 1200 
+    'gamma': 0.99
+    'lam': 0.95
+    'n_updates_per_iteration': 10
+    'lr': !!float 2.5e-3
+    'clip': 0.2
+    'seed': 741
+    'training_step' : 600
  

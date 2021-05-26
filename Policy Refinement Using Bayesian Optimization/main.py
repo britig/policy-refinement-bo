@@ -140,7 +140,7 @@ if __name__ == '__main__':
 	#=============================== Sub Policy Learning for Failure Trajectories Code End  ==========================#
 	#=============================== Policy Correction for Failure Trajectories Code Start  ==========================#
 	if args.correct:
-		correct_policy(env,'Policies/ppo_actorCartPole-v0.pth','Policies/ppo_criticCartPole-v0.pth','ppo_actor_subpolicyCartPole-v0.pth','ppo_critic_subpolicyCartPole-v0.pth',is_discrete,failure_trajectory)
+		correct_policy(env,'Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_criticLunarLanderContinuous-v2.pth','ppo_actor_subpolicyLunarLanderContinuous-v2.pth','ppo_critic_subpolicyLunarLanderContinuous-v2.pth',is_discrete,failure_trajectory)
 	#=============================== Policy Correction for Failure Trajectories Code End  ==========================#
 	#=============================== Compute Distance between two policies Code Start  ==========================#
 	if args.distance:

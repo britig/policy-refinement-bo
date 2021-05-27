@@ -40,16 +40,16 @@ The pre-trained policies are available in the Policies folder and need not be tr
 
 The main program takes the following command line arguments
 
-1) --env : environment name (default is LunarLanderContinuous-v2)
-2) --actor : filepath to the actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
-3) --critic : filepath to the critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
-4) --failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
+1) --env : environment name (default is Pendulum-v0)
+2) --actor : filepath to the actor network (default is Policies/ppo_actorPendulum-v0.pth)
+3) --critic : filepath to the critic network (default is Policies/ppo_criticPendulum-v0.pth)
+4) --failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_pendulum.data)
 5) --isdiscrete : True if environment is discrete (default False)
-6) --oldactor : filepath to the original actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
-7) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
-8) --subactor : filepath to the subpolicy actor network (default is Policies/ppo_actor_subpolicyLunarLanderContinuous-v2.pth)
-9) --subcritic : filepath to the subpolicy critic network (default is Policies/ppo_critic_subpolicyLunarLanderContinuous-v2.pth)
-10) --newactor : filepath to the updated actor network (default is Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth)
+6) --oldactor : filepath to the original actor network (default is Policies/ppo_actorPendulum-v0.pth)
+7) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticPendulum-v0.pth)
+8) --subactor : filepath to the subpolicy actor network (default is Policies/ppo_actor_subpolicyPendulum-v0.pth)
+9) --subcritic : filepath to the subpolicy critic network (default is Policies/ppo_critic_subpolicyPendulum-v0.pth)
+10) --newactor : filepath to the updated actor network (default is Policies/ppo_actor_updatedPendulum-v0.pth)
 
 The hyperparameters can be changed in the hyperparameters.yml file
 
@@ -75,10 +75,10 @@ Each environment has a seperate Bayesian Optimization file. Run the Bayesian Opt
 We use GpyOpt Library for Bayesian Optimization. As per (https://github.com/SheffieldML/GPyOpt/issues/337) GpyOpt has stochastic evaluations even when the seed is fixed.
 This may lead to identification of a different number failure trajectories (higher or lower) than the mean number of trajectories reported in the paper.
 
-For example to generate failure trajectories for the Lunar Lander environment run:
+For example to generate failure trajectories for the Pendulum environment run:
 
 ```
-$ python LunarLanderBO.py
+$ python PendulumBO.py
 ```
 
 The failure trajectories will be written in the corresponding data files in the same folder
@@ -111,12 +111,12 @@ $ python main.py --correct
 The correct method takes the actor and critic networks of the old policy and the subpolicy as an argument
 
 default function parameters are 
-1) --env : environment name (default is LunarLanderContinuous-v2)
-2) --oldactor : filepath to the original actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
-3) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
-4) --subactor : filepath to the subpolicy actor network (default is Policies/ppo_actor_subpolicyLunarLanderContinuous-v2.pth)
-5) --subcritic : filepath to the subpolicy critic network (default is Policies/ppo_critic_subpolicyLunarLanderContinuous-v2.pth)
-6) --failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
+1) --env : environment name (default is Pendulum-v0)
+2) --oldactor : filepath to the original actor network (default is Policies/ppo_actorPendulum-v0.pth)
+3) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticPendulum-v0.pth)
+4) --subactor : filepath to the subpolicy actor network (default is Policies/ppo_actor_subpolicyPendulum-v0.pth)
+5) --subcritic : filepath to the subpolicy critic network (default is Policies/ppo_critic_subpolicyPendulum-v0.pth)
+6) --failuretraj : The filepath to the failure trajectory path (default is FFailure_Trajectories/failure_trajectory_pendulum.data)
 7) --isdiscrete : True if environment is discrete (default False)
 
 ### Calculate the distance between the original policy and the updated policy
@@ -125,8 +125,8 @@ default function parameters are
 $ python main.py --distance
 ```
 default function parameters are:
-1) --oldactor : filepath to the original actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
-2) --new_actor : filepath to the updated actor network (default is Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth)
+1) --oldactor : filepath to the original actor network (default is Policies/ppo_actorPendulum-v0.pth)
+2) --new_actor : filepath to the updated actor network (default is Policies/ppo_actor_updatedPendulum-v0.pth)
 3) --env : environment name (default is LunarLanderContinuous-v2)
 4) --isdiscrete : True if environment is discrete (default False)
 

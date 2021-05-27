@@ -38,18 +38,18 @@ All the trained policies, sub-policies and updated policies are avialable in the
 
 The pre-trained policies are available in the policies folder and need not be trained again
 
-The main program takes the following arguments
+The main program takes the following command line arguments
 
-1) env : environment name (default is LunarLanderContinuous-v2)
-2) actor : filepath to the actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
-3) critic : filepath to the critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
-4) failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
-5) isdiscrete : True if environment is discrete (default False)
+1) --env : environment name (default is LunarLanderContinuous-v2)
+2) --actor : filepath to the actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
+3) --critic : filepath to the critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
+4) --failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
+5) --isdiscrete : True if environment is discrete (default False)
 
 The hyperparameters can be changed in the hyperparameters.yml file
 
 
-Note : Change the default arguments in the main.py file otherwise the command line may become too long
+Note : Change the default arguments inside the main.py file otherwise the command line may become too long
 
 
 ### Testing
@@ -65,7 +65,7 @@ Press ctr+c to end testing
 ### Generating Failure trajectories for a specific environment
 
 Each environment has a seperate Bayesian Optimization file. Run the Bayesian Optimization correspondig to the environment
-We use GpyOpt Library for Bayesian Optimization. As per (https://github.com/SheffieldML/GPyOpt/issues/337) GpyOpt has stochastic evaluations
+We use GpyOpt Library for Bayesian Optimization. As per (https://github.com/SheffieldML/GPyOpt/issues/337) GpyOpt has stochastic evaluations even when the seed is fixed.
 This may lead to identification of a different number failure trajectories (higher or lower) than the mean number of trajectories reported in the paper.
 
 For example to generate failure trajectories for the Lunar Lander environment run:

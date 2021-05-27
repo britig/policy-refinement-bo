@@ -31,12 +31,22 @@ if __name__ == '__main__':
 	parser.add_argument('--correct', dest='correct', action='store_true', help='Correct the orginal policy')
 	parser.add_argument('--distance', dest='distance', action='store_true', help='Computing distance between two subpolicy')
 	parser.add_argument('--isdiscrete', dest='isdiscrete', action='store_true', help='Environment discrete or continuous')
+	parser.add_argument('--oldactor', dest='oldactor', action='store_true', help='Old Actor Network')
+	parser.add_argument('--oldcritic', dest='oldcritic', action='store_true', help='Old Critic Network')
+	parser.add_argument('--subactor', dest='subactor', action='store_true', help='Sub Actor Network')
+	parser.add_argument('--subcritic', dest='subcritic', action='store_true', help='Sub Critic Network')
+	parser.add_argument('--newactor', dest='newactor', action='store_true', help='New Actor Network')
 	args = parser.parse_args()
 	actor_model = None
-	criti_model = None
+	critic_model = None
 	failure_trajectory = None
 	env_name = None
 	is_discrete = False
+	old_actor = None
+	old_critic = None
+	sub_actor = None
+	sub_critic = None
+	new_actor = None
 	if args.env:
 		env_name = args.env
 	else:
@@ -55,6 +65,26 @@ if __name__ == '__main__':
 		failure_trajectory = args.failuretraj
 	else:
 		failure_trajectory = 'Failure_Trajectories/failure_trajectory_lunar_implication.data'
+	if args.oldactor:
+		old_actor = args.oldactor
+	else:
+		old_actor = 'Policies/ppo_actorLunarLanderContinuous-v2.pth'
+	if args.oldcritic:
+		old_critic = args.oldcritic
+	else:
+		old_critic = 'Policies/ppo_criticLunarLanderContinuous-v2.pth'
+	if args.subactor:
+		sub_actor = args.subactor
+	else:
+		sub_actor = 'Policies/ppo_actor_subpolicyLunarLanderContinuous-v2.pth'
+	if args.subcritic:
+		sub_critic = args.subcritic
+	else:
+		sub_critic = 'Policies/ppo_critic_subpolicyLunarLanderContinuous-v2.pth'
+	if args.newactor:
+		new_actor = args.newactor
+	else:
+		new_actor = 'Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth'
 
 	env = set_environment(env_name,0)
 	with open('hyperparameters.yml') as file:
@@ -140,14 +170,14 @@ if __name__ == '__main__':
 	#=============================== Sub Policy Learning for Failure Trajectories Code End  ==========================#
 	#=============================== Policy Correction for Failure Trajectories Code Start  ==========================#
 	if args.correct:
-		correct_policy(env,'Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_criticLunarLanderContinuous-v2.pth','ppo_actor_subpolicyLunarLanderContinuous-v2.pth','ppo_critic_subpolicyLunarLanderContinuous-v2.pth',is_discrete,failure_trajectory)
+		correct_policy(env,old_actor,old_critic,sub_actor,sub_critic,is_discrete,failure_trajectory)
 	#=============================== Policy Correction for Failure Trajectories Code End  ==========================#
 	#=============================== Compute Distance between two policies Code Start  ==========================#
 	if args.distance:
 		#For finding out standard deviation
 		distance_list = []
 		for i in range(20):
-			dist = compute_distance('Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth',env,is_discrete)
+			dist = compute_distance(old_actor,new_actor,env,is_discrete)
 			distance_list.append(dist)
 		distance_list =	np.array(distance_list)
 		print(f'distance_list ========== {distance_list}')

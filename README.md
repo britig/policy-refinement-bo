@@ -2,6 +2,8 @@
 
 # System Requirements
 
+The code has been tested in systems with the following OS
+
 - Ubuntu 20.04.2 LTS
 - Windows 10 with Anaconda
 

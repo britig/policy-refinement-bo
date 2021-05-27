@@ -49,7 +49,7 @@ The main program takes the following command line arguments
 7) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
 8) --subactor : filepath to the subpolicy actor network (default is Policies/ppo_actor_subpolicyLunarLanderContinuous-v2.pth)
 9) --subcritic : filepath to the subpolicy critic network (default is Policies/ppo_critic_subpolicyLunarLanderContinuous-v2.pth)
-10) --new_actor : filepath to the updated actor network (default is Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth)
+10) --newactor : filepath to the updated actor network (default is Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth)
 
 The hyperparameters can be changed in the hyperparameters.yml file
 

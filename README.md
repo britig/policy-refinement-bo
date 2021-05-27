@@ -36,7 +36,7 @@ All the trained policies, sub-policies and updated policies are avialable in the
 ```
 
 
-The pre-trained policies are available in the policies folder and need not be trained again
+The pre-trained policies are available in the Policies folder and need not be trained again
 
 The main program takes the following command line arguments
 
@@ -68,6 +68,8 @@ $ python main.py --test
 Press ctr+c to end testing
 
 ### Generating Failure trajectories for a specific environment
+
+Failure trajectories uncovered with our tests are available in Failure Trajectories Folder
 
 Each environment has a seperate Bayesian Optimization file. Run the Bayesian Optimization correspondig to the environment
 We use GpyOpt Library for Bayesian Optimization. As per (https://github.com/SheffieldML/GPyOpt/issues/337) GpyOpt has stochastic evaluations even when the seed is fixed.

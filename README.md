@@ -64,7 +64,8 @@ Press ctr+c to end testing
 
 Each environment has a seperate Bayesian Optimization file. Run the Bayesian Optimization correspondig to the environment
 We use GpyOpt Library for Bayesian Optimization. As per (https://github.com/SheffieldML/GPyOpt/issues/337) GpyOpt has stochastic evaluations
-This may lead to identification of a different number failure trajectories (higher or lower) than what is reported in the paper
+This may lead to identification of a different number failure trajectories (higher or lower) than the mean number of trajectories reported in the paper.
+
 For example to generate failure trajectories for the Lunar Lander environment run:
 
 ```

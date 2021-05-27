@@ -33,7 +33,6 @@ All the trained policies, sub-policies and updated policies are avialable in the
 - Navigate to the installed gym folder env and replace the box2d and mujoco folders with the ones inside the env folder of this repository. We have changed some private variables to class variables to acceess them from outside.
 ```
 
-### Training
 
 The pre-trained policies are available in the policies folder and need not be trained again
 
@@ -45,14 +44,11 @@ The main program takes the following arguments
 4) failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
 5) isdiscrete : True if environment is discrete (default False)
 
+The hyperparameters can be changed in the hyperparameters.yml file
+
+
 Note : Change the default arguments in the main.py file otherwise the command line may become too long
 
-To train a model run:
-
-```
-$ python main.py --train
-```
-The hyperparameters can be changed in the hyperparameters.yml file
 
 ### Testing
 
@@ -75,7 +71,7 @@ For example to generate failure trajectories for the Lunar Lander environment ru
 $ python LunarLanderBO.py
 ```
 
-The failure trajectories will be written in the corresponding data files
+The failure trajectories will be written in the corresponding data files in the same folder
 
 ### Displaying Failure trajectories
 
@@ -84,7 +80,7 @@ To display failure trajectories:
 ```
 $ python main.py --display
 ```
-Mention the policy and the failure trajectory file in arguments or in the main.py file
+Mention the actor policy and the failure trajectory file in arguments or in the main.py file
 
 Change the actor_model argument for observing the behaviour of sub-policy and updated policy on the failure trajectories
 
@@ -126,3 +122,12 @@ $ tensorboard --logdir=bestruns
 ```
 $ plot_heatmap_pendulum.py
 ```
+
+### Training a policy from scratch
+
+To train a model run:
+
+```
+$ python main.py --train
+```
+The hyperparameters can be changed in the hyperparameters.yml file

@@ -50,41 +50,41 @@ if __name__ == '__main__':
 	if args.env:
 		env_name = args.env
 	else:
-		env_name = 'LunarLanderContinuous-v2'
+		env_name = 'Pendulum-v0'
 	if args.isdiscrete:
 		is_discrete = args.isdiscrete
 	if args.actor:
 		actor_model = args.actor
 	else:
-		actor_model = 'Policies/ppo_actorLunarLanderContinuous-v2.pth'
+		actor_model = 'Policies/ppo_actorPendulum-v0.pth'
 	if args.critic:
 		critic_model = args.critic
 	else:
-		critic_model = 'Policies/ppo_criticLunarLanderContinuous-v2.pth'
+		critic_model = 'Policies/ppo_criticPendulum-v0.pth'
 	if args.failuretraj:
 		failure_trajectory = args.failuretraj
 	else:
-		failure_trajectory = 'Failure_Trajectories/failure_trajectory_lunar_implication.data'
+		failure_trajectory = 'Failure_Trajectories/failure_trajectory_pendulum.data'
 	if args.oldactor:
 		old_actor = args.oldactor
 	else:
-		old_actor = 'Policies/ppo_actorLunarLanderContinuous-v2.pth'
+		old_actor = 'Policies/ppo_actorPendulum-v0.pth'
 	if args.oldcritic:
 		old_critic = args.oldcritic
 	else:
-		old_critic = 'Policies/ppo_criticLunarLanderContinuous-v2.pth'
+		old_critic = 'Policies/ppo_criticPendulum-v0.pth'
 	if args.subactor:
 		sub_actor = args.subactor
 	else:
-		sub_actor = 'Policies/ppo_actor_subpolicyLunarLanderContinuous-v2.pth'
+		sub_actor = 'Policies/ppo_actor_subpolicyPendulum-v0.pth'
 	if args.subcritic:
 		sub_critic = args.subcritic
 	else:
-		sub_critic = 'Policies/ppo_critic_subpolicyLunarLanderContinuous-v2.pth'
+		sub_critic = 'Policies/ppo_critic_subpolicyPendulum-v0.pth'
 	if args.newactor:
 		new_actor = args.newactor
 	else:
-		new_actor = 'Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth'
+		new_actor = 'Policies/ppo_actor_updatedPendulum-v0.pth'
 
 	env = set_environment(env_name,0)
 	with open('hyperparameters.yml') as file:

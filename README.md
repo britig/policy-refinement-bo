@@ -45,6 +45,11 @@ The main program takes the following command line arguments
 3) --critic : filepath to the critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
 4) --failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
 5) --isdiscrete : True if environment is discrete (default False)
+6) --oldactor : filepath to the original actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
+7) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
+8) --subactor : filepath to the subpolicy actor network (default is Policies/ppo_actor_subpolicyLunarLanderContinuous-v2.pth)
+9) --subcritic : filepath to the subpolicy critic network (default is Policies/ppo_critic_subpolicyLunarLanderContinuous-v2.pth)
+10) --new_actor : filepath to the updated actor network (default is Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth)
 
 The hyperparameters can be changed in the hyperparameters.yml file
 
@@ -104,9 +109,13 @@ $ python main.py --correct
 The correct method takes the actor and critic networks of the old policy and the subpolicy as an argument
 
 default function parameters are 
-correct_policy(env,'Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_criticLunarLanderContinuous-v2.pth','ppo_actor_subpolicyLunarLanderContinuous-v2.pth','ppo_critic_subpolicyLunarLanderContinuous-v2.pth',is_discrete,failure_trajectory)
-
-failure_trajectory is the argument for failure trajectory file
+1) --env : environment name (default is LunarLanderContinuous-v2)
+2) --oldactor : filepath to the original actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
+3) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticLunarLanderContinuous-v2.pth)
+4) --subactor : filepath to the subpolicy actor network (default is Policies/ppo_actor_subpolicyLunarLanderContinuous-v2.pth)
+5) --subcritic : filepath to the subpolicy critic network (default is Policies/ppo_critic_subpolicyLunarLanderContinuous-v2.pth)
+6) --failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_lunar_implication.data)
+7) --isdiscrete : True if environment is discrete (default False)
 
 ### Calculate the distance between the original policy and the updated policy
 
@@ -114,6 +123,10 @@ failure_trajectory is the argument for failure trajectory file
 $ python main.py --distance
 ```
 default function parameters are:
+1) --oldactor : filepath to the original actor network (default is Policies/ppo_actorLunarLanderContinuous-v2.pth)
+2) --new_actor : filepath to the updated actor network (default is Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth)
+3) --env : environment name (default is LunarLanderContinuous-v2)
+4) --isdiscrete : True if environment is discrete (default False)
 
 compute_distance('Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth',env,is_discrete)
 
@@ -125,6 +138,8 @@ $ tensorboard --logdir=bestruns
 ```
 $ plot_heatmap_pendulum.py
 ```
+
+The heatmaps are stored inside the img folder
 
 ### Training a policy from scratch
 

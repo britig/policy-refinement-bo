@@ -54,6 +54,8 @@ def update_policy(policy_old, critic_old, policy_new, critic_new, env, fail_file
 	num_of_iterations = 10
 	if(env.unwrapped.spec.id == 'CartPole-v0'):
 		num_of_iterations = 100
+	if(env.unwrapped.spec.id == 'LunarLanderContinuous-v2'):
+		num_of_iterations = 40
 	global logger
 	while i_so_far < num_of_iterations:
 		# Commence failure trajectory collection based on observation produced by BO

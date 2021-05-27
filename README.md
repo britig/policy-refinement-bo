@@ -69,7 +69,7 @@ Press ctr+c to end testing
 
 ### Generating Failure trajectories for a specific environment
 
-Failure trajectories uncovered with our tests are available in Failure Trajectories Folder
+Failure trajectories uncovered with our tests are available in Failure_Trajectories Folder
 
 Each environment has a seperate Bayesian Optimization file. Run the Bayesian Optimization correspondig to the environment
 We use GpyOpt Library for Bayesian Optimization. As per (https://github.com/SheffieldML/GPyOpt/issues/337) GpyOpt has stochastic evaluations even when the seed is fixed.

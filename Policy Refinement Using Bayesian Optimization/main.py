@@ -126,15 +126,10 @@ if __name__ == '__main__':
 		if env_name == 'BipedalWalker-v3':
 			count = 0
 			for i in range(len(failure_observations)):
-				#env.reset()
-				#the index for which it was sampled
-				index_count = failure_observations[i][2]
-				#print(f'index_count==== {index_count}')
-				#print(f'reward_specification ==== {failure_observations[i][1]}')
-				while count != index_count:
-					env.reset()
-					count = count + 1
-				
+				seed = failure_observations[i][2]
+				#print(seed)
+				env.seed(seed[0])
+				env.reset()
 				ep_ret, traj, iter  = display(failure_observations[i][0][0],policy,env,False)
 		elif env_name == 'LunarLanderContinuous-v2':
 			for i in range(len(failure_observations)):

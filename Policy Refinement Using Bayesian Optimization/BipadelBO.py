@@ -37,6 +37,7 @@ index_count = 0
 '''
 def sample_trajectory(bounds):
     global policy, env, traj_spec_dic,traj_count, index_count
+    selected_seed = env.seed(None)
     x1 = bounds[0][0]
     x2 = bounds[0][1]
     x3 = bounds[0][2]
@@ -57,7 +58,7 @@ def sample_trajectory(bounds):
     index_count = index_count+1
     #Store the set of trajectories with negative evaluation
     if specification_evaluation<0:
-        traj_spec_dic[traj_count] = (traj[0],specification_evaluation,index_count)
+        traj_spec_dic[traj_count] = (traj[0],specification_evaluation,selected_seed,(x1,x2,x3))
         traj_count = traj_count + 1
     print(f'specification_evaluation ========== {specification_evaluation}')
     return specification_evaluation

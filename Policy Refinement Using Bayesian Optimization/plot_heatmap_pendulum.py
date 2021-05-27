@@ -23,7 +23,7 @@ def ppo_heatmap_observations(env,critic_name,actor_name):
     cnet.load_state_dict(torch.load(critic_name))
     value_map = cnet(state).view(y_pxl, x_pxl).detach().numpy()
 
-    anet = FeedForwardActorNN(obs_dim, act_dim)
+    anet = FeedForwardActorNN(obs_dim, act_dim, False)
     anet.load_state_dict(torch.load(actor_name))
     action_map = anet(state).view(y_pxl, x_pxl).detach().numpy()
 
@@ -61,7 +61,7 @@ def ppo_heatmap_failure(env,critic_name,actor_name):
     cnet = FeedForwardCriticNN(obs_dim, 1)
     cnet.load_state_dict(torch.load(critic_name))
 
-    anet = FeedForwardActorNN(obs_dim, act_dim)
+    anet = FeedForwardActorNN(obs_dim, act_dim,False)
     anet.load_state_dict(torch.load(actor_name))
 
     with open('Failure_Trajectories/failure_trajectory_pendulum.data', 'rb') as filehandle1:
@@ -105,5 +105,7 @@ def ppo_heatmap_failure(env,critic_name,actor_name):
 env = gym.make('Pendulum-v0')
 seed = 0
 env.seed(seed)
-#ppo_heatmap_observations(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actorPendulumupdated.pth')
-ppo_heatmap_failure(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actorPendulumupdated.pth')
+ppo_heatmap_observations(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actorPendulum-v0.pth')
+ppo_heatmap_failure(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actorPendulum-v0.pth')
+ppo_heatmap_observations(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actor_updatedPendulum-v0.pth')
+ppo_heatmap_failure(env,'Policies/ppo_criticPendulum-v0.pth','Policies/ppo_actor_updatedPendulum-v0.pth')

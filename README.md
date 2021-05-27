@@ -128,7 +128,6 @@ default function parameters are:
 3) --env : environment name (default is LunarLanderContinuous-v2)
 4) --isdiscrete : True if environment is discrete (default False)
 
-compute_distance('Policies/ppo_actorLunarLanderContinuous-v2.pth','Policies/ppo_actor_updatedLunarLanderContinuous-v2.pth',env,is_discrete)
 
 ### Display the plots and heatmaps
 

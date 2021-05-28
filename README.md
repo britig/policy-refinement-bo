@@ -36,14 +36,14 @@ All the trained policies, sub-policies and updated policies are avialable in the
 ```
 
 
-The pre-trained policies are available in the Policies folder and need not be trained again
+The pre-trained policies are available in the Policies folder
 
 The main program takes the following command line arguments
 
 1) --env : environment name (default is Pendulum-v0)
 2) --actor : filepath to the actor network (default is Policies/ppo_actorPendulum-v0.pth)
 3) --critic : filepath to the critic network (default is Policies/ppo_criticPendulum-v0.pth)
-4) --failuretraj : The filepath to the failure trajectory path (default is Failure_Trajectories/failure_trajectory_pendulum.data)
+4) --failuretraj : The filepath to the failure trajectory file (default is Failure_Trajectories/failure_trajectory_pendulum.data)
 5) --isdiscrete : True if environment is discrete (default False)
 6) --oldactor : filepath to the original actor network (default is Policies/ppo_actorPendulum-v0.pth)
 7) --oldcritic : filepath to the original critic network (default is Policies/ppo_criticPendulum-v0.pth)

@@ -126,7 +126,7 @@ $ python main.py --distance
 ```
 default function parameters are:
 1) --oldactor : filepath to the original actor network (default is Policies/ppo_actorPendulum-v0.pth)
-2) --new_actor : filepath to the updated actor network (default is Policies/ppo_actor_updatedPendulum-v0.pth)
+2) --newactor : filepath to the updated actor network (default is Policies/ppo_actor_updatedPendulum-v0.pth)
 3) --env : environment name (default is LunarLanderContinuous-v2)
 4) --isdiscrete : True if environment is discrete (default False)
 

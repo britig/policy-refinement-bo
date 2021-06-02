@@ -51,7 +51,7 @@ def update_policy(policy_old, critic_old, policy_new, critic_new, env, fail_file
 	i_so_far = 0 # Iterations ran so far
 	
 	#Number for steps for gradient correction
-	num_of_iterations = 10
+	num_of_iterations = 7
 	if(env.unwrapped.spec.id == 'CartPole-v0'):
 		num_of_iterations = 100
 	if(env.unwrapped.spec.id == 'LunarLanderContinuous-v2'):

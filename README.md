@@ -1,5 +1,7 @@
 # Policy Refinement Using Bayesian Optimization
 
+This repo contains the experiments and code for Counterexample Guided RL Policy Refinement Using Bayesian Optimization paper (https://proceedings.neurips.cc/paper/2021/file/c0e19ce0dbabbc0d17a4f8d4324cc8e3-Paper.pdf). 
+
 # System Requirements
 
 The code has been tested in systems with the following OS

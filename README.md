@@ -152,3 +152,19 @@ To train a model run:
 $ python main.py --train
 ```
 The hyperparameters can be changed in the hyperparameters.yml file
+
+Please cite our paper in your publications if it helps your research.
+
+```
+@inproceedings{NEURIPS2021_c0e19ce0,
+ author = {Gangopadhyay, Briti and Dasgupta, Pallab},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {M. Ranzato and A. Beygelzimer and Y. Dauphin and P.S. Liang and J. Wortman Vaughan},
+ pages = {22783--22794},
+ publisher = {Curran Associates, Inc.},
+ title = {Counterexample Guided RL Policy Refinement Using Bayesian Optimization},
+ url = {https://proceedings.neurips.cc/paper/2021/file/c0e19ce0dbabbc0d17a4f8d4324cc8e3-Paper.pdf},
+ volume = {34},
+ year = {2021}
+}
+```
